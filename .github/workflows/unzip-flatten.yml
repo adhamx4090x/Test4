@@ -16,12 +16,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Get current workflow file path
-        id: workflow-path
-        run: |
-          echo "path=${{ github/workflow_ref }}" >> $GITHUB_OUTPUT
-          echo "filename=$(basename ${{ github/workflow_ref }})" >> $GITHUB_OUTPUT
-
       - name: Extract ZIP and rename conflicting folders
         run: |
           CONFLICTING_FOLDERS=".git .github"
@@ -73,7 +67,7 @@ jobs:
       - name: Delete workflow file itself
         if: always()
         run: |
-          WORKFLOW_FILE=".github/workflows/$(basename ${{ github/workflow_ref }})"
+          WORKFLOW_FILE=".github/workflows/unzip-flatten.yml"
           if [ -f "$WORKFLOW_FILE" ]; then
             rm -f "$WORKFLOW_FILE"
             git add -A
