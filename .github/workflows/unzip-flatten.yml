@@ -24,7 +24,6 @@ jobs:
 
       - name: Extract ZIP and rename conflicting folders
         run: |
-          # المجلدات اللي هتعارض مع الريبو
           CONFLICTING_FOLDERS=".git .github"
           
           while IFS= read -r -d '' zip_file; do
@@ -37,7 +36,6 @@ jobs:
             
             cd "$TEMP_DIR"
             
-            # إعادة تسمية المجلدات المتعارضة
             for folder in $CONFLICTING_FOLDERS; do
               if [ -d "$folder" ]; then
                 echo "Renaming: $folder -> _${folder}"
